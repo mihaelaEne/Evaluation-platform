@@ -22,9 +22,7 @@ public class Question {
     private Long id;
 
 
-    @NotNull
     private String intrebare;
-    @NotNull
     private String raspuns;
 
     @ManyToOne(fetch = FetchType.LAZY)

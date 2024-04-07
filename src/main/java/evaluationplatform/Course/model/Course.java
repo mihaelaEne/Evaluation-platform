@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -33,14 +34,22 @@ public class Course {
 
 
     private String description;
+
+    public void addExamen(Examen examen){
+         this.exams.add(examen);
+         examen.setCourse(this);
+    }
+
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Enrolment> enrolments;
+    @Builder.Default
+    private Set<Enrolment> enrolments= new HashSet<>();
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id",referencedColumnName = "id", nullable = false)
     @JsonBackReference
     private Professor professor;
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Examen> exams;
+    @Builder.Default
+    private Set<Examen> exams= new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -55,5 +64,5 @@ public class Course {
         return getClass().hashCode();
     }
 
-    
+
 }

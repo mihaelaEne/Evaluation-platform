@@ -27,12 +27,11 @@ public class Examen {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "examen_sequence")
     private Long id;
 
-    @NotNull
     private String title;
-    @NotNull
     private Date date;
-    @NotNull
     private int duration;
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id",referencedColumnName = "id", nullable = false)

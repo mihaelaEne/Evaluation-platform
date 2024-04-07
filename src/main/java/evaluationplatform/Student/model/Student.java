@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name= "Student")
@@ -25,9 +26,8 @@ public class Student extends User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_sequence")
     private Long id;
 
-    @NotNull
     private String facultate;
-    @NotNull
+
     private String yearOfStudy;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -37,7 +37,16 @@ public class Student extends User {
     private Set<Answer> answers;
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if(!(o instanceof Student))return false;
+        Student other=(Student) o;
+        return id!=null&&id.equals(other.getId());
+    }
 
-
-
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

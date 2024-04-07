@@ -13,6 +13,8 @@ public interface ProfessorRepo extends JpaRepository<Professor, Long> {
     @EntityGraph(attributePaths = {"courses","evaluations"}, type = EntityGraph.EntityGraphType.LOAD)
     Optional<Professor> findById(Long id);
 
+    @EntityGraph(attributePaths = {"courses","evaluations"}, type = EntityGraph.EntityGraphType.LOAD)
+    Optional<Professor>findByName(String name);
 
 
 }
